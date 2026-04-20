@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "name": "Ishita Butola",
+      "email": "butolaishita@gmail.com",
+      "password": "$2a$10$h6HOP7n728B7tNLAvambrOKMgjQyeKS0k9OPacyXpBdUt5x8MkwQe",
+      "college": "DU",
+      "rating": 0,
+      "totalRides": 0,
+      "id": "1776718268086"
+    },
+    {
+      "name": "Test User",
+      "email": "test@example.com",
+      "password": "$2a$10$0CTGgRCvJmaAVzbC9HoxseRdi2VNhq0M/CnKWmmXnarTxeIRWjywa",
+      "college": "password123",
+      "rating": 0,
+      "totalRides": 0,
+      "id": "1776718596849"
+    },
+    {
+      "name": "John Doe",
+      "email": "john@test.com",
+      "password": "$2a$10$x553TDDMzEf19ptgYXsVQu294YcL9K4dayra.UUyioPjaRGSxabm2",
+      "college": "MyCollege",
+      "rating": 0,
+      "totalRides": 0,
+      "id": "1776718726276"
+    }
+  ],
+  "rides": [],
+  "messages": []
+}
