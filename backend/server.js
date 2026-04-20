@@ -9,8 +9,20 @@ const app = express();
 connectDB();
 
 // Middleware
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://campus-rideshare-frontend.onrender.com',
+  process.env.FRONTEND_URL
+];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all for now, be permissive
+    }
+  },
   credentials: true
 }));
 app.use(express.json({ limit: '10kb' }));
