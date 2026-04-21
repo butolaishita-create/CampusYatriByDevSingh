@@ -23,6 +23,24 @@ app.use('/api/rides', require('./routes/rides'));
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/users', require('./routes/users'));
 
+// Geocoding proxy (avoids CORS issues with Nominatim)
+app.get('/api/geocode', async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (!q) return res.status(400).json({ message: 'Query parameter "q" is required' });
+    
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=1&countrycodes=in&email=campusyatri@app.com`;
+    const response = await fetch(url, {
+      headers: { 'User-Agent': 'CampusYatri/1.0 (campusyatri@app.com)' }
+    });
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    console.error('Geocoding error:', err.message);
+    res.status(500).json({ message: 'Geocoding failed' });
+  }
+});
+
 // Health check
 app.get('/health', (req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
 

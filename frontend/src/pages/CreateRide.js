@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { createRide } from '../services/api';
 import Spinner from '../components/Spinner';
+import RideMap from '../components/RideMap';
 
 const CreateRide = () => {
   const [form, setForm] = useState({
@@ -137,6 +138,14 @@ const CreateRide = () => {
               <div className="font-semibold mb-1">📋 Ride Summary</div>
               <div>{form.from} → {form.to} • {form.seatsTotal} seats • ₹{form.price}/seat</div>
               {form.date && <div className="mt-0.5 text-blue-600">{new Date(form.date).toLocaleString('en-IN')}</div>}
+            </div>
+          )}
+
+          {/* Route Preview Map */}
+          {(form.from || form.to) && (
+            <div>
+              <label className="text-sm font-medium text-slate-700 mb-1.5 block">📍 Route Preview</label>
+              <RideMap from={form.from} to={form.to} height="220px" />
             </div>
           )}
 

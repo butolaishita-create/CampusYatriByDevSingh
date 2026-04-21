@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { getRideById, joinRide, leaveRide, deleteRide } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import Spinner from '../components/Spinner';
+import RideMap from '../components/RideMap';
 
 const RideDetails = () => {
   const { id } = useParams();
@@ -141,6 +142,12 @@ const RideDetails = () => {
             <p className="text-sm text-slate-700">{ride.description}</p>
           </div>
         )}
+      </div>
+
+      {/* Live Map */}
+      <div className="mb-4">
+        <div className="text-xs font-medium text-slate-500 mb-2 uppercase tracking-wide">📍 Route Map</div>
+        <RideMap from={ride.from} to={ride.to} height="280px" />
       </div>
 
       {/* Driver */}

@@ -5,6 +5,7 @@ import { getRides } from '../services/api';
 import RideCard from '../components/RideCard';
 import Spinner from '../components/Spinner';
 import EmptyState from '../components/EmptyState';
+import RidesMapView from '../components/RidesMapView';
 
 const Dashboard = () => {
   const [rides, setRides] = useState([]);
@@ -14,6 +15,7 @@ const Dashboard = () => {
   const [pages, setPages] = useState(1);
   const [filters, setFilters] = useState({ from: '', to: '', date: '' });
   const [applied, setApplied] = useState({});
+  const [viewMode, setViewMode] = useState('list'); // 'list' or 'map'
   const navigate = useNavigate();
 
   const fetchRides = useCallback(async (p = 1, f = {}) => {
@@ -58,9 +60,34 @@ const Dashboard = () => {
             {loading ? 'Loading...' : `${total} ride${total !== 1 ? 's' : ''} found`}
           </p>
         </div>
-        <button onClick={() => navigate('/rides/create')} className="btn-primary flex items-center gap-2">
-          <span>+</span> Post a Ride
-        </button>
+        <div className="flex items-center gap-3">
+          {/* Map/List Toggle */}
+          <div className="flex bg-slate-100 rounded-xl p-1">
+            <button
+              onClick={() => setViewMode('list')}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                viewMode === 'list'
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              📋 List
+            </button>
+            <button
+              onClick={() => setViewMode('map')}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                viewMode === 'map'
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              🗺️ Map
+            </button>
+          </div>
+          <button onClick={() => navigate('/rides/create')} className="btn-primary flex items-center gap-2">
+            <span>+</span> Post a Ride
+          </button>
+        </div>
       </div>
 
       {/* Filters */}
@@ -120,11 +147,27 @@ const Dashboard = () => {
         />
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {rides.map((ride) => (
-              <RideCard key={ride._id} ride={ride} />
-            ))}
-          </div>
+          {/* Map View */}
+          {viewMode === 'map' && (
+            <div className="mb-6">
+              <RidesMapView rides={rides} />
+            </div>
+          )}
+
+          {/* List/Card View */}
+          {viewMode === 'list' ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {rides.map((ride) => (
+                <RideCard key={ride._id} ride={ride} />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {rides.map((ride) => (
+                <RideCard key={ride._id} ride={ride} />
+              ))}
+            </div>
+          )}
 
           {/* Pagination */}
           {pages > 1 && (
