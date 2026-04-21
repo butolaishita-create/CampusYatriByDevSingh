@@ -3,13 +3,13 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-
 import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
+import { geocodeCityLocal } from './indianCities';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
 // Cache for geocoded cities
 const geoCache = {};
 
-import { geocodeCityLocal } from './indianCities';
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 const geocodeCity = async (city) => {

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { geocodeCityLocal } from './indianCities';
 
 // Fix Leaflet default marker icon issue with webpack
 delete L.Icon.Default.prototype._getIconUrl;
@@ -48,7 +49,6 @@ const FitBounds = ({ positions }) => {
 };
 
 // Geocode: uses local Indian cities database first, then API fallback
-import { geocodeCityLocal } from './indianCities';
 
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
