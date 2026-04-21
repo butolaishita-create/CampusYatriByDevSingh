@@ -1,7 +1,13 @@
 import axios from 'axios';
 
+const FALLBACK_RENDER_API = 'https://campusyatribydevsingh.onrender.com/api';
+const configuredApi = process.env.REACT_APP_API_URL;
+const apiBaseUrl = !configuredApi || configuredApi.includes('campus-rideshare-backend.onrender.com')
+  ? FALLBACK_RENDER_API
+  : configuredApi;
+
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+  baseURL: apiBaseUrl,
   timeout: 10000,
 });
 
