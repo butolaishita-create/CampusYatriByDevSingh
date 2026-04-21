@@ -5,6 +5,7 @@ import { getRideById, joinRide, leaveRide, deleteRide } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import Spinner from '../components/Spinner';
 import RideMap from '../components/RideMap';
+import { MessageSquare, Car, Trash2, MapPin, Frown, Star } from 'lucide-react';
 
 const RideDetails = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ const RideDetails = () => {
     try {
       const { data } = await joinRide(id);
       setRide(data);
-      toast.success('Joined the ride! 🎉');
+      toast.success('Joined the ride!');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to join');
     } finally {
@@ -77,7 +78,7 @@ const RideDetails = () => {
 
   if (!ride) return (
     <div className="text-center py-20">
-      <div className="text-5xl mb-4">😕</div>
+      <Frown size={48} className="mx-auto text-slate-400 mb-4" />
       <p className="text-slate-600">Ride not found</p>
     </div>
   );
@@ -146,7 +147,9 @@ const RideDetails = () => {
 
       {/* Live Map */}
       <div className="mb-4">
-        <div className="text-xs font-medium text-slate-500 mb-2 uppercase tracking-wide">📍 Route Map</div>
+        <div className="text-xs font-medium text-slate-500 mb-2 uppercase tracking-wide flex items-center gap-1.5">
+          <MapPin size={16} className="text-emerald-500" /> Route Map
+        </div>
         <RideMap from={ride.from} to={ride.to} height="280px" />
       </div>
 
@@ -161,8 +164,15 @@ const RideDetails = () => {
             <div>
               <div className="font-semibold text-slate-900">{ride.driverId?.name}</div>
               <div className="text-xs text-slate-500">{ride.driverId?.college || 'Student'}</div>
-              <div className="text-yellow-400 text-xs mt-0.5">
-                {'★'.repeat(Math.round(ride.driverId?.rating || 5))}
+              <div className="flex items-center gap-0.5 mt-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star 
+                    key={i} 
+                    size={12} 
+                    fill={i < Math.round(ride.driverId?.rating || 5) ? 'currentColor' : 'none'} 
+                    className={i < Math.round(ride.driverId?.rating || 5) ? 'text-yellow-400' : 'text-slate-300'} 
+                  />
+                ))}
                 <span className="text-slate-400 ml-1">{(ride.driverId?.rating || 5).toFixed(1)}</span>
               </div>
             </div>
@@ -170,9 +180,9 @@ const RideDetails = () => {
           {!isDriver && (
             <button
               onClick={() => navigate(`/chat/${ride.driverId._id}`)}
-              className="btn-secondary py-2 text-sm"
+              className="btn-secondary py-2 text-sm flex items-center gap-2"
             >
-              💬 Message
+              <MessageSquare size={16} /> Message
             </button>
           )}
         </div>
@@ -212,7 +222,7 @@ const RideDetails = () => {
       <div className="flex flex-col gap-3">
         {canJoin && (
           <button onClick={handleJoin} disabled={actionLoading} className="btn-primary py-3 flex items-center justify-center gap-2">
-            {actionLoading ? <Spinner size="sm" /> : `🚗 Join Ride — ₹${ride.price}`}
+            {actionLoading ? <Spinner size="sm" /> : <><Car size={18} /> Join Ride — ₹{ride.price}</>}
           </button>
         )}
         {canLeave && (
@@ -222,7 +232,7 @@ const RideDetails = () => {
         )}
         {isDriver && ride.status === 'active' && (
           <button onClick={handleDelete} disabled={actionLoading} className="btn-danger py-3 flex items-center justify-center gap-2">
-            {actionLoading ? <Spinner size="sm" /> : '🗑 Cancel Ride'}
+            {actionLoading ? <Spinner size="sm" /> : <><Trash2 size={18} /> Cancel Ride</>}
           </button>
         )}
         {ride.seatsAvailable === 0 && !isDriver && !isPassenger && (

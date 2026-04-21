@@ -34,8 +34,17 @@ const Login = () => {
       <div className="w-full max-w-md animate-slide-up">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-lg">CR</span>
+          <div className="flex justify-center mb-4">
+            <svg width="48" height="34" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M42 12 A 22 22 0 1 0 42 48" stroke="#0c4a6e" strokeWidth="14" strokeLinecap="round" />
+              <circle cx="42" cy="30" r="16" stroke="#f97316" strokeWidth="5" fill="white" />
+              <circle cx="42" cy="30" r="4" fill="#f97316" />
+              <path d="M42 34 L42 46" stroke="#f97316" strokeWidth="5" />
+              <path d="M38 29 L26 25" stroke="#f97316" strokeWidth="5" />
+              <path d="M46 29 L58 25" stroke="#f97316" strokeWidth="5" />
+              <path d="M52 12 L68 32 L84 12" stroke="#0c4a6e" strokeWidth="12" strokeLinejoin="round" strokeLinecap="round" />
+              <path d="M68 32 L68 48" stroke="#0c4a6e" strokeWidth="12" strokeLinecap="round" />
+            </svg>
           </div>
           <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
           <p className="text-slate-500 text-sm mt-1">Sign in to your account</p>

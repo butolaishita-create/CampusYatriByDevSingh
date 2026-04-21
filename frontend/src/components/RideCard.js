@@ -1,11 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Calendar, Clock, Users, Star } from 'lucide-react';
 
 const StarRating = ({ rating }) => {
+  const roundedRating = Math.round(rating);
   return (
-    <span className="text-yellow-400 text-xs">
-      {'★'.repeat(Math.round(rating))}{'☆'.repeat(5 - Math.round(rating))}
-    </span>
+    <div className="flex items-center gap-0.5 text-yellow-400">
+      {[...Array(5)].map((_, i) => (
+        <Star
+          key={i}
+          size={12}
+          fill={i < roundedRating ? 'currentColor' : 'none'}
+          className={i < roundedRating ? 'text-yellow-400' : 'text-slate-300'}
+        />
+      ))}
+    </div>
   );
 };
 
@@ -54,15 +63,15 @@ const RideCard = ({ ride }) => {
       {/* Details */}
       <div className="flex flex-wrap gap-3 text-sm text-slate-600 mb-4">
         <div className="flex items-center gap-1.5 bg-slate-50 rounded-lg px-2.5 py-1.5">
-          <span>📅</span>
+          <Calendar size={14} className="text-slate-400" />
           <span>{formatDate(ride.date)}</span>
         </div>
         <div className="flex items-center gap-1.5 bg-slate-50 rounded-lg px-2.5 py-1.5">
-          <span>⏰</span>
+          <Clock size={14} className="text-slate-400" />
           <span>{formatTime(ride.date)}</span>
         </div>
         <div className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 ${isAlmostFull ? 'bg-red-50 text-red-600' : 'bg-slate-50'}`}>
-          <span>💺</span>
+          <Users size={14} className={isAlmostFull ? 'text-red-500' : 'text-slate-400'} />
           <span>{seatsLeft} seat{seatsLeft !== 1 ? 's' : ''} left</span>
         </div>
       </div>

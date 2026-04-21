@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { geocodeCityLocal } from './indianCities';
+import { Map as MapIcon } from 'lucide-react';
 
 // Fix Leaflet default marker icon issue with webpack
 delete L.Icon.Default.prototype._getIconUrl;
@@ -142,7 +143,7 @@ const RideMap = ({ from, to, height = '300px', showRoute = true, className = '' 
         style={{ height }}
       >
         <div className="text-center">
-          <span className="text-3xl">🗺️</span>
+          <MapIcon size={32} className="mx-auto text-slate-400" />
           <p className="text-sm text-slate-500 mt-2">Map unavailable for this route</p>
         </div>
       </div>

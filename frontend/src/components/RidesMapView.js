@@ -172,7 +172,7 @@ const RidesMapView = ({ rides }) => {
                     {ride.from} → {ride.to}
                   </div>
                   <div style={{ fontSize: '12px', color: '#64748b' }}>
-                    📅 {formatDate(ride.date)} • ⏰ {formatTime(ride.date)}
+                    {formatDate(ride.date)} • {formatTime(ride.date)}
                   </div>
                   <div style={{ fontSize: '13px', fontWeight: 600, color: '#3b82f6', marginTop: '4px' }}>
                     ₹{ride.price}/seat • {ride.seatsAvailable} seats left

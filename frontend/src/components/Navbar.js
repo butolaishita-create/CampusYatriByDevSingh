@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Car, PlusCircle, MessageSquare, User, LogOut } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
@@ -14,10 +15,10 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { to: '/dashboard', label: 'Rides', icon: '🚗' },
-    { to: '/rides/create', label: 'Post Ride', icon: '➕' },
-    { to: '/chat', label: 'Messages', icon: '💬' },
-    { to: `/profile/${user?._id}`, label: 'Profile', icon: '👤' },
+    { to: '/dashboard', label: 'Rides', icon: <Car size={18} /> },
+    { to: '/rides/create', label: 'Post Ride', icon: <PlusCircle size={18} /> },
+    { to: '/chat', label: 'Messages', icon: <MessageSquare size={18} /> },
+    { to: `/profile/${user?._id}`, label: 'Profile', icon: <User size={18} /> },
   ];
 
   const isActive = (path) => location.pathname.startsWith(path);
@@ -28,10 +29,17 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/dashboard" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white text-sm font-bold">CR</span>
-            </div>
-            <span className="font-bold text-slate-900 text-lg hidden sm:block">Campus Rides</span>
+            <svg width="40" height="28" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M42 12 A 22 22 0 1 0 42 48" stroke="#0c4a6e" strokeWidth="14" strokeLinecap="round" />
+              <circle cx="42" cy="30" r="16" stroke="#f97316" strokeWidth="5" fill="white" />
+              <circle cx="42" cy="30" r="4" fill="#f97316" />
+              <path d="M42 34 L42 46" stroke="#f97316" strokeWidth="5" />
+              <path d="M38 29 L26 25" stroke="#f97316" strokeWidth="5" />
+              <path d="M46 29 L58 25" stroke="#f97316" strokeWidth="5" />
+              <path d="M52 12 L68 32 L84 12" stroke="#0c4a6e" strokeWidth="12" strokeLinejoin="round" strokeLinecap="round" />
+              <path d="M68 32 L68 48" stroke="#0c4a6e" strokeWidth="12" strokeLinecap="round" />
+            </svg>
+            <span className="font-bold text-slate-900 text-lg hidden sm:block">Campus Yatri</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -54,7 +62,7 @@ const Navbar = () => {
           {/* Right side */}
           <div className="flex items-center gap-3">
             <span className="hidden sm:block text-sm font-medium text-slate-700">
-              Hi, {user?.name?.split(' ')[0]} 👋
+              Hi, {user?.name?.split(' ')[0]}
             </span>
             <button
               onClick={handleLogout}
@@ -97,7 +105,7 @@ const Navbar = () => {
               onClick={handleLogout}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-red-500 hover:bg-red-50 transition-colors"
             >
-              <span>🚪</span> Logout
+              <LogOut size={18} /> Logout
             </button>
           </div>
         )}

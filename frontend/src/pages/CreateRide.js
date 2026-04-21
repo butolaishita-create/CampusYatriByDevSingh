@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { createRide } from '../services/api';
 import Spinner from '../components/Spinner';
 import RideMap from '../components/RideMap';
+import { Car, MapPin, ClipboardList } from 'lucide-react';
 
 const CreateRide = () => {
   const [form, setForm] = useState({
@@ -27,7 +28,7 @@ const CreateRide = () => {
     setLoading(true);
     try {
       const { data } = await createRide({ ...form, price: Number(form.price), seatsTotal: Number(form.seatsTotal) });
-      toast.success('Ride posted successfully! 🚗');
+      toast.success('Ride posted successfully!');
       navigate(`/rides/${data._id}`);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to post ride');
@@ -135,7 +136,9 @@ const CreateRide = () => {
           {/* Summary card */}
           {form.from && form.to && form.price && (
             <div className="bg-blue-50 rounded-xl p-4 text-sm text-blue-800 border border-blue-100">
-              <div className="font-semibold mb-1">📋 Ride Summary</div>
+              <div className="font-semibold mb-1 flex items-center gap-2">
+                <ClipboardList size={16} /> Ride Summary
+              </div>
               <div>{form.from} → {form.to} • {form.seatsTotal} seats • ₹{form.price}/seat</div>
               {form.date && <div className="mt-0.5 text-blue-600">{new Date(form.date).toLocaleString('en-IN')}</div>}
             </div>
@@ -144,13 +147,15 @@ const CreateRide = () => {
           {/* Route Preview Map */}
           {(form.from || form.to) && (
             <div>
-              <label className="text-sm font-medium text-slate-700 mb-1.5 block">📍 Route Preview</label>
+              <label className="text-sm font-medium text-slate-700 mb-1.5 flex items-center gap-1.5">
+                <MapPin size={16} className="text-emerald-500" /> Route Preview
+              </label>
               <RideMap from={form.from} to={form.to} height="220px" />
             </div>
           )}
 
           <button type="submit" disabled={loading} className="btn-primary w-full py-3 flex items-center justify-center gap-2">
-            {loading ? <Spinner size="sm" /> : '🚗 Post Ride'}
+            {loading ? <Spinner size="sm" /> : <><Car size={18} /> Post Ride</>}
           </button>
         </form>
       </div>

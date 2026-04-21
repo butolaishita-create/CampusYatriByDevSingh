@@ -6,6 +6,7 @@ import RideCard from '../components/RideCard';
 import Spinner from '../components/Spinner';
 import EmptyState from '../components/EmptyState';
 import RidesMapView from '../components/RidesMapView';
+import { List, Map as MapIcon, PlusCircle, Search, Car } from 'lucide-react';
 
 const Dashboard = () => {
   const [rides, setRides] = useState([]);
@@ -65,27 +66,27 @@ const Dashboard = () => {
           <div className="flex bg-slate-100 rounded-xl p-1">
             <button
               onClick={() => setViewMode('list')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
                 viewMode === 'list'
                   ? 'bg-white text-blue-600 shadow-sm'
                   : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              📋 List
+              <List size={16} /> List
             </button>
             <button
               onClick={() => setViewMode('map')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
                 viewMode === 'map'
                   ? 'bg-white text-blue-600 shadow-sm'
                   : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              🗺️ Map
+              <MapIcon size={16} /> Map
             </button>
           </div>
           <button onClick={() => navigate('/rides/create')} className="btn-primary flex items-center gap-2">
-            <span>+</span> Post a Ride
+            <PlusCircle size={18} /> Post a Ride
           </button>
         </div>
       </div>
@@ -125,7 +126,7 @@ const Dashboard = () => {
         </div>
         <div className="flex gap-2">
           <button type="submit" className="btn-primary py-2 text-sm flex items-center gap-2">
-            🔍 Search
+            <Search size={16} /> Search
           </button>
           {hasFilters && (
             <button type="button" onClick={handleClear} className="btn-secondary py-2 text-sm">
@@ -140,7 +141,7 @@ const Dashboard = () => {
         <div className="flex justify-center py-20"><Spinner size="lg" /></div>
       ) : rides.length === 0 ? (
         <EmptyState
-          icon="🚗"
+          icon={<Car size={48} className="text-blue-500" />}
           title="No rides found"
           description="No rides match your search. Try different filters or be the first to post a ride!"
           action={{ label: 'Post a Ride', onClick: () => navigate('/rides/create') }}

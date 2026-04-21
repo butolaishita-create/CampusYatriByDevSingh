@@ -1,14 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Car, Search, MessageSquare, Star, ShieldCheck, PiggyBank, MapPin, GraduationCap } from 'lucide-react';
 
 const Landing = () => {
   const navigate = useNavigate();
 
   const features = [
-    { icon: '🚗', title: 'Post Rides', desc: 'Share your trip and split fuel costs with fellow students.' },
-    { icon: '🔍', title: 'Find Rides', desc: 'Search rides by location and date with smart filters.' },
-    { icon: '💬', title: 'Chat Securely', desc: 'Message riders directly to coordinate pickups.' },
-    { icon: '⭐', title: 'Trusted Reviews', desc: 'Rate drivers and passengers for a safe community.' },
+    { icon: <Car className="text-blue-500 w-10 h-10 mx-auto" />, title: 'Post Rides', desc: 'Share your trip and split fuel costs with fellow students.' },
+    { icon: <Search className="text-blue-500 w-10 h-10 mx-auto" />, title: 'Find Rides', desc: 'Search rides by location and date with smart filters.' },
+    { icon: <MessageSquare className="text-blue-500 w-10 h-10 mx-auto" />, title: 'Chat Securely', desc: 'Message riders directly to coordinate pickups.' },
+    { icon: <Star className="text-blue-500 w-10 h-10 mx-auto" />, title: 'Trusted Reviews', desc: 'Rate drivers and passengers for a safe community.' },
   ];
 
   return (
@@ -16,10 +17,17 @@ const Landing = () => {
       {/* Header */}
       <header className="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center">
-            <span className="text-white font-bold text-sm">CR</span>
-          </div>
-          <span className="font-bold text-slate-900 text-xl">Campus Rides</span>
+          <svg width="40" height="28" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M42 12 A 22 22 0 1 0 42 48" stroke="#0c4a6e" strokeWidth="14" strokeLinecap="round" />
+            <circle cx="42" cy="30" r="16" stroke="#f97316" strokeWidth="5" fill="white" />
+            <circle cx="42" cy="30" r="4" fill="#f97316" />
+            <path d="M42 34 L42 46" stroke="#f97316" strokeWidth="5" />
+            <path d="M38 29 L26 25" stroke="#f97316" strokeWidth="5" />
+            <path d="M46 29 L58 25" stroke="#f97316" strokeWidth="5" />
+            <path d="M52 12 L68 32 L84 12" stroke="#0c4a6e" strokeWidth="12" strokeLinejoin="round" strokeLinecap="round" />
+            <path d="M68 32 L68 48" stroke="#0c4a6e" strokeWidth="12" strokeLinecap="round" />
+          </svg>
+          <span className="font-bold text-slate-900 text-xl">Campus Yatri</span>
         </div>
         <div className="flex gap-3">
           <button onClick={() => navigate('/login')} className="btn-secondary text-sm py-2 px-4">
@@ -34,7 +42,7 @@ const Landing = () => {
       {/* Hero */}
       <section className="max-w-4xl mx-auto px-4 pt-16 pb-20 text-center">
         <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full text-sm font-medium mb-8">
-          🎓 Built for college students
+          <GraduationCap size={18} /> Built for college students
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
           Share Rides,<br />
@@ -60,9 +68,13 @@ const Landing = () => {
 
         {/* Stats */}
         <div className="flex flex-wrap justify-center gap-8 mt-16">
-          {[['🚗', 'Easy Posting', 'Post in 30 sec'], ['💰', 'Save up to 70%', 'On travel costs'], ['🔒', 'Safe & Verified', 'College students only']].map(([icon, title, sub]) => (
-            <div key={title} className="text-center">
-              <div className="text-2xl mb-1">{icon}</div>
+          {[
+            [<Car size={28} className="text-blue-500" />, 'Easy Posting', 'Post in 30 sec'], 
+            [<PiggyBank size={28} className="text-emerald-500" />, 'Save up to 70%', 'On travel costs'], 
+            [<ShieldCheck size={28} className="text-indigo-500" />, 'Safe & Verified', 'College students only']
+          ].map(([icon, title, sub], index) => (
+            <div key={index} className="text-center flex flex-col items-center">
+              <div className="mb-3 p-3 bg-white rounded-full shadow-sm">{icon}</div>
               <div className="font-bold text-slate-900">{title}</div>
               <div className="text-sm text-slate-500">{sub}</div>
             </div>
@@ -100,7 +112,7 @@ const Landing = () => {
 
       {/* Footer */}
       <footer className="text-center py-8 text-slate-400 text-sm border-t border-slate-100">
-        © {new Date().getFullYear()} Campus Ride Share. Made for students, by students.
+        © {new Date().getFullYear()} Campus Yatri. Made for students, by students.
       </footer>
     </div>
   );
