@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Car, Search, MessageSquare, Star, ShieldCheck, PiggyBank, MapPin, GraduationCap } from 'lucide-react';
+import { Car, Search, MessageSquare, Star, ShieldCheck, PiggyBank, GraduationCap } from 'lucide-react';
 
 const Landing = () => {
   const navigate = useNavigate();
